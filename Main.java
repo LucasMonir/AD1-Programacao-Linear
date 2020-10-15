@@ -52,7 +52,8 @@ public class Main {
         }
 		return caminhos;
 	}
-
+	
+    //criar em arquivo separado	
     static class Aresta{
         int valor;
         Vertice destino;
@@ -63,6 +64,7 @@ public class Main {
         }
     }
 
+    //criar em arquivo separado
     public static class Vertice implements Comparable<Vertice>{
         int id;
         Aresta[] adjacentes;
