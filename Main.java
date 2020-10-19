@@ -5,8 +5,8 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 public class Main {
-    static double dt = 0;
 
+    static int tamanho = 20;
     // Metodo para encontrar todos os menores caminho
     public static void calculaCaminhos(Vertice inicio){
         // distancia até ele mesmo é 0
@@ -54,15 +54,11 @@ public class Main {
         // Coloca a lista na ordem inicio -> fim
         Collections.reverse(caminho);
         for (Vertice vertice : caminho) {
-            caminhos += vertice.id + ", ";
+            caminhos += vertice.id + ", " ;
         }
         
-        // Faz a adição de todas as distancias até o destino
-        for (Vertice vertice : caminho) {
-            dt += vertice.distancia;     
-        }
         // Retorna caminhos com o custo minimo
-		return "Caminho de menor custo: " + caminhos + ", Custo total: " + dt;
+		return "Caminho de menor custo: " + caminhos + " Com custo total de: " + destino.distancia;
 	}
 
     public static void main(String[] args) {
@@ -70,22 +66,83 @@ public class Main {
         // Recebe a lista de vertices de classe externa ListaVertices por motivos de legibilidade
         Vertice[] vertices = ListaVertices.getListaVertices();
 
-        // Armazena opções selecionadas pelo usuário
-        int inicio = Integer.parseInt(JOptionPane.showInputDialog("qual o ponto inicial? 1,2...20):"));
-        int fim = Integer.parseInt(JOptionPane.showInputDialog("qual o destino? (1,2...20):"));
+        // Escolha do menu
+        int op = 5;
 
-        // Associa o numero escolhido com o respectivo vertice da lista
-        Vertice comeco = qualVertice(inicio, vertices);
-        Vertice alvo = qualVertice(fim, vertices);
+        // Menu com while e switch para escolher operação desejada
+        while(op != 0){
+            switch(op){
+                case 5:
+                    op = Integer.parseInt(JOptionPane.showInputDialog("Operação 1: Exibir caminho minimo entre 2 vértices \n" 
+                    + "Operação 2: Exibir matriz de distancia final \n"
+                    + "Opção escolhida? (1 | 2)"));
+                break;
 
-        // Chama metodos do algoritimo
-        calculaCaminhos(comeco);
-        String menorCaminho = encontraCaminho(alvo);
+                case 1:
+                    // Armazena opções selecionadas pelo usuário
+                    int inicio = Integer.parseInt(JOptionPane.showInputDialog("qual o ponto inicial? 1,2...20):"));
+                    int fim = Integer.parseInt(JOptionPane.showInputDialog("qual o destino? (1,2...20):"));
 
-        // Exibe resultado caminho mais curto com o custo
-        JOptionPane.showMessageDialog(null, menorCaminho);
+                    // Associa o numero escolhido com o respectivo vertice da lista
+                    Vertice comeco = qualVertice(inicio, vertices);
+                    Vertice alvo = qualVertice(fim, vertices);
+
+                    // Chama metodos do algoritimo
+                    calculaCaminhos(comeco);
+                    String menorCaminho = encontraCaminho(alvo);
+
+                    // Exibe resultado caminho mais curto com o custo
+                    JOptionPane.showMessageDialog(null, menorCaminho);
+
+                    // Retorna ao menu principal
+                    op =5;
+                break;
+
+                case 2:
+                    // Instancia a matriz fornecida, em outra classe por motivos de clareza
+                    int matrizInicial[][] = MatrizInicial.getMatriz();
+                    
+                    // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de menores valores
+                    int matrizFinal[][] = Floyd.aplicaFloyd(matrizInicial, tamanho);
+                    
+                    //Exibe a matriz inteira na tela (de forma simples por motivos de teste)
+                    JOptionPane.showMessageDialog(null, toString(matrizFinal));
+
+                    // Retorna ao menu principal
+                    op = 5;
+                break;
+
+                // Operação padrão para caso nenhuma entrada conhecida seja escolhida
+                default:
+                    op = 5;
+            }
+        }        
     }
 
+    // Método para criar uma String com todos os valores da matriz final 
+    private static String toString(int matrizFinal[][]) {
+
+        // String para armazenar a lista total
+        String resultado = " ";
+
+        // Para cada item na matriz, se o valor não for infinito, adicioná-lo á String
+        for (int i = 0; i < tamanho; ++i) {
+            for (int j = 0; j < tamanho; ++j) {
+                if (matrizFinal[i][j] == MatrizInicial.infinito){
+                    resultado += " Infinito |";
+                }
+                else{
+                    resultado += " - " +matrizFinal[i][j] + " |";
+                }       
+            }
+            resultado += " \n";
+        }
+
+        // Retorna a String
+        return resultado;
+    }
+
+    // Método utilizado para desocobrir qual vértice baseado em seu id
     public static Vertice qualVertice(int v, Vertice[] listaVertices){
         for (Vertice vertice : listaVertices) {
             if(vertice.id == v){
