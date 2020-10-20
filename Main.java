@@ -41,7 +41,7 @@ public class Main {
     }
 
     // Metodo pra encontrar o caminho baseado no resultado de calculaCaminhos
-    public static String encontraCaminho(Vertice destino){
+    public static String encontraCaminhoComValor(Vertice destino){
         // Anota os caminhos
         String caminhos = ""; 
 
@@ -59,7 +59,7 @@ public class Main {
         
         // Retorna caminhos com o custo minimo
 		return "Caminho de menor custo: " + caminhos + " Com custo total de: " + destino.distancia;
-	}
+    }
 
     public static void main(String[] args) {
         
@@ -75,7 +75,8 @@ public class Main {
                 case 5:
                     op = Integer.parseInt(JOptionPane.showInputDialog("Operação 1: Exibir caminho minimo entre 2 vértices \n" 
                     + "Operação 2: Exibir matriz de distancia final \n"
-                    + "Opção escolhida? (1 | 2)"));
+                    + "Sair: 0 \n" 
+                    + "Opção escolhida? (1 | 2 | 0)"));
                 break;
 
                 case 1:
@@ -89,7 +90,7 @@ public class Main {
 
                     // Chama metodos do algoritimo
                     calculaCaminhos(comeco);
-                    String menorCaminho = encontraCaminho(alvo);
+                    String menorCaminho = encontraCaminhoComValor(alvo);
 
                     // Exibe resultado caminho mais curto com o custo
                     JOptionPane.showMessageDialog(null, menorCaminho);
