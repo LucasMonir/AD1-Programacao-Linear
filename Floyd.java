@@ -17,7 +17,6 @@ public class Floyd {
                     // Se o valor for menor que o fornecido na matriz, o novo valor se torna o atual na matriz
                     if (matrizFinal[i][k] + matrizFinal[k][j] < matrizFinal[i][j]){
                         matrizFinal[i][j] = matrizFinal[i][k] + matrizFinal[k][j];
-                        System.out.println(i +" " + k );
                     }
 
                 }
