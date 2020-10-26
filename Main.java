@@ -133,7 +133,7 @@ public class Main {
                     resultado += " Infinito |";
                 }
                 else{
-                    resultado += " - " +matrizFinal[i][j] + " |";
+                    resultado += "| " +matrizFinal[i][j] + " |";
                 }       
             }
             resultado += " \n";
