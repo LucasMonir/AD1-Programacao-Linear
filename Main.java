@@ -62,9 +62,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        
-        // Recebe a lista de vertices de classe externa ListaVertices por motivos de legibilidade
-        Vertice[] vertices = ListaVertices.getListaVertices();
 
         // Escolha do menu
         int op = 5;
@@ -80,6 +77,9 @@ public class Main {
                 break;
 
                 case 1:
+                    // Recebe a lista de vertices de classe externa ListaVertices por motivos de legibilidade
+                    Vertice[] vertices = ListaVertices.getListaVertices();
+                    
                     // Armazena opções selecionadas pelo usuário
                     int inicio = Integer.parseInt(JOptionPane.showInputDialog("qual o ponto inicial? 1,2...20):"));
                     int fim = Integer.parseInt(JOptionPane.showInputDialog("qual o destino? (1,2...20):"));
@@ -106,9 +106,12 @@ public class Main {
                     // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de menores valores
                     int matrizFinal[][] = Floyd.aplicaFloyd(matrizInicial, tamanho);
                     
-                    //Exibe a matriz inteira na tela (de forma simples por motivos de teste)
-                    JOptionPane.showMessageDialog(null, toString(matrizFinal));
+                    // Utiliza o metodo toString da classe floyd para obter a matriz em texto
+                    String saida = Floyd.toString(matrizFinal, tamanho);
 
+                    // Exibe a matriz na tela
+                    JOptionPane.showMessageDialog(null, saida);
+                    
                     // Retorna ao menu principal
                     op = 5;
                 break;
@@ -118,29 +121,6 @@ public class Main {
                     op = 5;
             }
         }        
-    }
-
-    // Método para criar uma String com todos os valores da matriz final 
-    private static String toString(int matrizFinal[][]) {
-
-        // String para armazenar a lista total
-        String resultado = " ";
-
-        // Para cada item na matriz, se o valor não for infinito, adicioná-lo á String
-        for (int i = 0; i < tamanho; ++i) {
-            for (int j = 0; j < tamanho; ++j) {
-                if (matrizFinal[i][j] == MatrizInicial.infinito){
-                    resultado += " Infinito |";
-                }
-                else{
-                    resultado += "| " +matrizFinal[i][j] + " |";
-                }       
-            }
-            resultado += " \n";
-        }
-
-        // Retorna a String
-        return resultado;
     }
 
     // Método utilizado para desocobrir qual vértice baseado em seu id
