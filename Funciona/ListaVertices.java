@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 public class ListaVertices {
     public static Vertice[] getListaVertices(){

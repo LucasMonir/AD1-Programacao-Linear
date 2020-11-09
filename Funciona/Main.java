@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 // bibliotecas necessárias
 import java.util.*;
@@ -121,7 +121,7 @@ public class Main {
                     // Instancia a matriz fornecida, em outra classe por motivos de clareza
                     int matrizInicio[][] = MatrizInicial.getMatriz();
                         
-                    // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de menores valores
+                    // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de roteamento (caminho para os vértices).
                     int matrizFim[][] = Floyd.roteamento(matrizInicio, tamanho);
                     
                     // Utiliza o metodo toString da classe floyd para obter a matriz em texto

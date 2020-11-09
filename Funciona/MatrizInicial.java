@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 // Classe que possui a matriz definida Hard-Code
 class MatrizInicial{

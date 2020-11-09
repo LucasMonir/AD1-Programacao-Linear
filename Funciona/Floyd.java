@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 // Classe que possui o algorotimo de floyd
 public class Floyd {

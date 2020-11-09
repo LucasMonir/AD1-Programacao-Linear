@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 public class Aresta {
     int valor;

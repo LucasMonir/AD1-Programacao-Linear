@@ -1,4 +1,4 @@
-package Funciona;
+package Trabalho;
 
 // implementa interface Comparable para comparação na priorityQueue
 public class Vertice implements Comparable<Vertice> {
