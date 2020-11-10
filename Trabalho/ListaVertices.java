@@ -2,7 +2,7 @@ package Trabalho;
 
 public class ListaVertices {
     public static Vertice[] getListaVertices(){
-        // declaração dos vertices
+        // Declaração dos vértices
         Vertice v1 = new Vertice(1);
         Vertice v2 = new Vertice(2);
         Vertice v3 = new Vertice(3);
@@ -24,7 +24,7 @@ public class ListaVertices {
         Vertice v19 = new Vertice(19);
         Vertice v20 = new Vertice(20);
 
-        // adição das arestas aos vertices
+        // Adição das arestas aos vértices
         v1.adjacentes = new Aresta[]{
             new Aresta(861,v4),
             new Aresta(211,v6),
@@ -191,7 +191,7 @@ public class ListaVertices {
             new Aresta(455, v19)
         };
 
-        // retorna vetor com todos os vertices
+        // Retorna vetor com todos os vértices
         return new Vertice[]{v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20};
     }
 }

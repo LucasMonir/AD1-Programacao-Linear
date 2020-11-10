@@ -1,8 +1,8 @@
 package Trabalho;
 
-// Classe que possui a matriz definida Hard-Code
+// Classe que possui a matriz definida diretamente em seu código (Hard-Code)
 class MatrizInicial{
-    // Define um valor para representar o infinito (caso de quando um vertice não possui aresta para um outro)
+    // Define um valor para representar o infinito (caso de quando um vértice não possui aresta para um outro)
     final static int infinito = 99999;
     
     // Método para retornar a matriz inicial fornecida que foi colocada na classe por motivos de clareza

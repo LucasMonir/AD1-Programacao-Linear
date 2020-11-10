@@ -1,6 +1,6 @@
 package Trabalho;
 
-// Classe que possui o algorotimo de floyd
+// Classe que possui o algorotimo de Floyd
 public class Floyd {
     //Variável com numero máximo para caso não existir caminho
     final static int infinito = 9999, nV = 20;
@@ -8,7 +8,7 @@ public class Floyd {
     // Método que aplica o algoritimo e retorna matriz de roteamento
     public static int[][] roteamento(int matrizFinal[][], int tamanho){
 
-        // Inicia matrizes que serão usadas pela logica
+        // Inicia matrizes que serão usadas pela lógica
         int matrizA[][] = new int[20][20];
         int matrizRoteamento[][] = new int[20][20];
 
@@ -20,7 +20,7 @@ public class Floyd {
             }
         }
 
-        // Zera a matriz A
+        // Zera os vértices que chegam ao mesmo vértice do qual partem
         for(int i = 0; i < tamanho; i++){
             matrizA[i][i] = 0;
         }
@@ -34,21 +34,22 @@ public class Floyd {
                         // Se a soma dos valores for menor q o valor atual então a soma toma seu lugar
                         matrizA[i][j] = matrizA[i][k] + matrizA[k][j];
 
-                        // Armazena o vertice em questão que representa o caminho
+                        // Armazena o vertice em questão que representa o caminho. É adicionado 1 para fins de
+                        // melhor representar os 20 vértices de 1 a 20, ao invés de 0 a 19.
                         matrizRoteamento[i][j] = k + 1;
                     }
                 }
             }
         }
-
+        // retorna matriz de roteamento
         return matrizRoteamento;
     }
 
     public static int[][] todasDistanciasFinais(int matrizInicial[][], int tamanho) {
-        // Recebe a matriz inicial e cria a final ja com base na mesma
+        // Recebe a matriz inicial e cria a final já com base na mesma
         int matrizFinal[][] = matrizInicial;
         
-        // Sequencia de for's encadeados para percorrer a matriz, linha por linha
+        // Sequência de for's encadeados para percorrer a matriz, linha por linha
         for (int k = 0; k < tamanho; k++) {
             
             for (int i = 0; i < tamanho; i++) {
@@ -76,12 +77,12 @@ public class Floyd {
         for (int i = 0; i < tamanho; ++i) {
             for (int j = 0; j < tamanho; ++j) {
                 
-                // Se não houver cmainho então é infinito
+                // Se não houver caminho, então é infinito
                 if (matriz[i][j] == infinito){
                     matrizFinal[i][j] = 99999; 
                 }
 
-                // Percorre o triangulo superior principal
+                // Percorre o triângulo superior principal
                 else{
                     if(i<=j){
                         matrizFinal[i][j] = matriz[i][j]; 
@@ -108,7 +109,7 @@ public class Floyd {
             }
         }    
 
-        // Inicializa String com todos os resultados
+        // Inicializa uma String com todos os resultados
         String saida = "";
 
         // Roda por toda matriz e coloca os resultados dentro da String

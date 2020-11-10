@@ -1,63 +1,71 @@
 package Trabalho;
 
-// bibliotecas necessárias
+// Bibliotecas necessárias
 import java.util.*;
 import javax.swing.JOptionPane;
 
 public class Main {
 
     static int tamanho = 20;
-    // Metodo para encontrar todos os menores caminho
+    // Método para encontrar todos os menores caminhos
     public static void calculaCaminhos(Vertice inicio){
-        // distancia até ele mesmo é 0
+        // Distância até ele mesmo é 0
         inicio.distancia = 0;
 
-        // Lista prioritária pro processamento dos vertices 
+        // Lista prioritária pro processamento dos vértices 
 		PriorityQueue<Vertice> queue = new PriorityQueue<Vertice>();
         
-        // Metodo verifica todos os caminhos possiveis e armazena menores distancias
-        // Anda pelos vertices do mesmo metodo de uma lista simples encadeada
+        // Método verifica todos os caminhos possíveis e armazena menores distâncias
+        // Anda pelos vertices do mesmo método de uma lista simples encadeada
         queue.add(inicio);
-            // Enquanto não estiver vazio o metodo continua
+            // Enquanto não estiver vazio o método continua
             while(!queue.isEmpty()){
 			Vertice verticeAtual = queue.poll();
             
-            // Pra cada aresta saindo do vertice, cria um vertice auxiliar
+            // Para cada aresta saindo do vértice, cria um vértice auxiliar
             // Testa o caminho adicionando ele como destino
-			for(Aresta a: verticeAtual.adjacentes){
+			for(Aresta a : verticeAtual.adjacentes){
 				Vertice verticeAuxiliar = a.destino;
 				double valor = a.valor;
-                double distanciaW = verticeAtual.distancia+valor;
+                double distanciaW = verticeAtual.distancia + valor;
                 
-                // Aplica lógica de djikstra de comparar os menores caminhos 
+                // Aplica lógica de Dijkstra ao comparar os menores caminhos 
                 if(distanciaW < verticeAuxiliar.distancia){
-					queue.remove(verticeAuxiliar);
-					verticeAuxiliar.distancia = distanciaW;
+
+                    // Remove o vértice da fila para processamento
+                    queue.remove(verticeAuxiliar);
+
+                    // Define a nova distância do vértice auxiliar
+                    verticeAuxiliar.distancia = distanciaW;
+                    
+                    // Declara que o vértice atual ja foi utilizado
                     verticeAuxiliar.anterior = verticeAtual;
+
+                    // Devolve o vértice para a fila para ser processado novamente
 					queue.add(verticeAuxiliar);
                 }
             }
 		}
     }
 
-    // Metodo pra encontrar o caminho baseado no resultado de calculaCaminhos
+    // Método pra encontrar o caminho baseado no resultado do método calculaCaminhos
     public static String encontraCaminhoComValor(Vertice destino){
         // Anota os caminhos
         String caminhos = ""; 
 
         // Adiciona os caminhos percorridos em uma lista partindo do destino
 		List<Vertice> caminho = new ArrayList<Vertice>();
-		for(Vertice v = destino; v !=null ; v = v.anterior){
+		for(Vertice v = destino; v != null ; v = v.anterior){
             caminho.add(v);
 		}
 
-        // Coloca a lista na ordem inicio -> fim
+        // Coloca a lista na ordem início -> fim
         Collections.reverse(caminho);
         for (Vertice vertice : caminho) {
             caminhos += vertice.id + ", " ;
         }
         
-        // Retorna caminhos com o custo minimo
+        // Retorna caminhos com o custo mínimo
 		return "Caminho de menor custo: " + caminhos + " Com custo total de: " + destino.distancia;
     }
 
@@ -78,22 +86,22 @@ public class Main {
                 break;
 
                 case 1:
-                    // Recebe a lista de vertices de classe externa ListaVertices por motivos de legibilidade
+                    // Recebe a lista de vértices da classe externa ListaVertices por motivos de legibilidade
                     Vertice[] vertices = ListaVertices.getListaVertices();
                     
                     // Armazena opções selecionadas pelo usuário
                     int inicio = Integer.parseInt(JOptionPane.showInputDialog("qual o ponto inicial? 1,2...20):"));
                     int fim = Integer.parseInt(JOptionPane.showInputDialog("qual o destino? (1,2...20):"));
 
-                    // Associa o numero escolhido com o respectivo vertice da lista
+                    // Associa o numero escolhido com o respectivo vértice da lista
                     Vertice comeco = qualVertice(inicio, vertices);
                     Vertice alvo = qualVertice(fim, vertices);
 
-                    // Chama metodos do algoritimo
+                    // Chama métodos do algoritimo
                     calculaCaminhos(comeco);
                     String menorCaminho = encontraCaminhoComValor(alvo);
 
-                    // Exibe resultado caminho mais curto com o custo
+                    // Exibe o caminho mais curto com o custo
                     JOptionPane.showMessageDialog(null, menorCaminho);
 
                     // Retorna ao menu principal
@@ -104,10 +112,10 @@ public class Main {
                     // Instancia a matriz fornecida, em outra classe por motivos de clareza
                     int matrizInicial[][] = MatrizInicial.getMatriz();
                     
-                    // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de menores valores
+                    // Utiliza o algoritmo de Floyd na classe Floyd para encontrar matriz de menores valores
                     int matrizFinal[][] = Floyd.todasDistanciasFinais(matrizInicial, tamanho);
                     
-                    // Utiliza o metodo toString da classe floyd para obter a matriz em texto
+                    // Utiliza o método toString da classe floyd para obter a matriz em texto
                     String saida = Floyd.toString(matrizFinal, tamanho);
 
                     // Exibe a matriz na tela
@@ -121,10 +129,10 @@ public class Main {
                     // Instancia a matriz fornecida, em outra classe por motivos de clareza
                     int matrizInicio[][] = MatrizInicial.getMatriz();
                         
-                    // Utiliza o metodo de floyd na classe Floyd para encontrar matriz de roteamento (caminho para os vértices).
+                    // Utiliza o algoritmo de Floyd modificado na classe Floyd para encontrar matriz de roteamento (caminho para os vértices)
                     int matrizFim[][] = Floyd.roteamento(matrizInicio, tamanho);
                     
-                    // Utiliza o metodo toString da classe floyd para obter a matriz em texto
+                    // Utiliza o método toString da classe Floyd para obter a matriz em texto
                     String out = Floyd.toString(matrizFim, tamanho);
 
                     // Exibe a matriz na tela
